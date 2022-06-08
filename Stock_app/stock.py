@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import yfinance as yf
+import altair as alt
  
 days = 20
  
@@ -43,5 +44,30 @@ def get_data(tickers, days):
  
     return df
  
-#確認用
-print(get_data(tickers=tickers, days=days))
+
+df = get_data(tickers=tickers, days=days)
+
+companies = ['apple', 'meta']
+data = df.loc[companies]
+
+data.sort_index()
+data = data.T.reset_index()
+data.head()
+
+data = pd.melt(data, id_vars=['Date']).rename(
+    columns={'value':'Stock Prices(USD)'}
+)
+
+ymin, ymax = 250, 300
+
+chart = (
+    alt.Chart(data)
+    .mark_line(opacity=0.8, clip=True)
+    .encode(
+        x="Date:T",
+        y=alt.Y("Stock Prices(USD):Q", stack=None, scale=alt.Scale(domain=[ymin,ymax])),
+        color='Name:N'
+    )
+)
+
+
