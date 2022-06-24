@@ -3,7 +3,7 @@ from google.cloud import texttospeech
 import io
 import streamlit as st
 
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'secret.json'
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'api_key.json'
 
 def synthesize_speech(text, lang="日本語", gender='default'):
     gender_type = {
@@ -80,12 +80,3 @@ if input_data is not None:
         response = synthesize_speech(input_data, lang, gender)
         st.audio(response.audio_content)
         comment.write('完了しました')
-
-
-# filename = "output.mp3"
-# response = synthesize_speech('ナジャです')
-
-# with open(filename, "wb") as out:
-#     # Write the response to the output file.
-#     out.write(response.audio_content)
-#     print(f'音声データは{filename}ファイルに書き出しました')
