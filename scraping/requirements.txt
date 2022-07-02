@@ -1,0 +1,10 @@
+beautifulsoup4
+pandas
+streamlit
+altair
+gspread
+google
+gspread_dataframe
+
+# ふつうはpackeagename==versionと記述する。
+# ない場合は最新版になる
